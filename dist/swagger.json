@@ -1,0 +1,584 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"ApiTeste",
+        "description": "Api para o teste da empresa Cosmobot",
+        "contact": {
+            "email": "augustocesarlamim@gmail.com",
+            "name": "augusto"
+        },
+        "version":"1.0.0"
+    },
+    "paths":{
+        "/users":{
+            "post":{
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Create User",
+                "description": "create a new user",
+                "requestBody": {
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "firstName": {
+                                        "required":true,
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "required":true,
+                                        "type": "string"
+                                    },
+                                    "emailName": {
+                                        "required":true,
+                                        "type": "string"
+                                    },
+                                    "groupId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "firstName": "Nome Teste",
+                                    "lastName": "Sobrenome Teste",
+                                    "email": "emaildeteste@gmail.com",
+                                    "groupId":"625a2453-a39d-456e-aaf0-e59b687a0af2"
+                                }
+                            }
+
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "userId":{
+                                            "type": "string"
+                                        },
+                                        "accountId":{
+                                            "type": "string"
+                                        },
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "emailName": {
+                                            "type": "string"
+                                        },
+                                        "groupId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "userId": "625a9999-a39d-456e-aaf0-e59b687a89u2",
+                                        "accountId": "562a2555-a39d-456e-aaf0-e59b687a0ad2",
+                                        "firstName": "Nome Teste",
+                                        "lastName": "Sobrenome Teste",
+                                        "email": "emaildeteste@gmail.com",
+                                        "groupId":"625a2453-a39d-456e-aaf0-e59b687a0af2"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "Email already in use"                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        },
+                                        "stack":{
+                                            "type": "string"
+                                        },
+                                        "local":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "There was an error when saving the data.",
+                                        "stack": "Cannot insert into table users",
+                                        "local": "user.store"                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "tags":[
+                    "UserController"
+                ],
+                "summary": "Search for users",
+                "description":"search for users through query parameters",
+                "parameters": [
+                    {
+                      "in": "query",
+                      "name": "userId",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "description": "Uuid of an user"
+                    },
+                    {
+                      "in": "query",
+                      "name": "firstName",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "description": "First name of an user"
+                    },
+                    {
+                        "in": "query",
+                        "name": "lastName",
+                        "schema": {
+                          "type": "string"
+                        },
+                        "description": "Last name of an user"
+                    },
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "schema": {
+                          "type": "string"
+                        },
+                        "description": "Email of an user"
+                      },
+                      {
+                        "in": "query",
+                        "name": "groupId",
+                        "schema": {
+                          "type": "string"
+                        },
+                        "description": "Uuid of an group the user is part of"
+                      },
+                      {
+                        "in": "query",
+                        "name": "GROUP_NAME",
+                        "schema": {
+                          "type": "string"
+                        },
+                        "description": "Name of a group the user is part of"
+                      }
+
+                  ],
+                  "responses":{
+                      "200":{
+                          "description": "List of users",
+                          "content":{
+                              "application/json":{
+                                  "schema":{
+                                      "type":"object",
+                                      "properties":{
+                                        "userId":{
+                                            "type": "string"
+                                        },
+                                        "accountId":{
+                                            "type": "string"
+                                        },
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "emailName": {
+                                            "type": "string"
+                                        },
+                                        "groupId": {
+                                            "type": "string"
+                                        },
+                                        "groups":{
+                                            "type":"object",
+                                            "properties":{
+                                                "GROUP_ID":{
+                                                    "type": "string"
+                                                },
+                                                "GROUP_NAME":{
+                                                    "type": "string"
+                                                },
+                                                "GROUP_DESCRIPTION": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "example": [
+                                        {
+                                            "userId": "914df709-2072-4320-944b-72baaaa1dcbb",
+                                            "accountId": "7d783204-b14e-4793-843d-934a9b16c788",
+                                            "firstName": "UsuarioTeste",
+                                            "lastName": "sobrenomeTeste",
+                                            "email": "emaildeteste@gmail.com",
+                                            "groups": {
+                                                "GROUP_ID": "625a2453-a39d-456e-aaf0-e59b687a0af2",
+                                                "GROUP_NAME": "Support Agents",
+                                                "GROUP_DESCRIPTION": null
+                                            }
+                                        },
+                                        {
+                                            "userId": "bd69416f-b6fa-406c-8a61-225e0b2d3f41",
+                                            "accountId": "389f7a06-01c3-484f-b91b-c9947455e9b6",
+                                            "firstName": "UsuarioTeste2",
+                                            "lastName": "sobrenomeTeste2",
+                                            "email": "emaildeteste2@gmail.com",
+                                            "groups": {
+                                                "GROUP_ID": "9b6f80a4-9865-4638-b06b-21bed4ee3933",
+                                                "GROUP_NAME": "Bot Builders",
+                                                "GROUP_DESCRIPTION": null
+                                            }
+                                        }
+                                    ]
+                                  }
+                              }
+                          }
+                      },
+                      "400":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "Invalid query"                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        },
+                                        "stack":{
+                                            "type": "string"
+                                        },
+                                        "local":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "There was an error when loading the data.",
+                                        "stack": "Cannot select from table users",
+                                        "local": "user.index"                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  }
+            }
+        },
+        "/users/{userId}":{
+            "parameters":{
+                "in": "path",
+                "name": "userId",
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Uuid of an user"
+            },
+            "put":{
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Updates an user",
+                "description": "updates information on an existing user",
+                "requestBody": {                    
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "emailName": {
+                                        "type": "string"
+                                    },
+                                    "groupId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "firstName": "Nome Teste",
+                                    "lastName": "Sobrenome Teste",
+                                    "email": "emaildeteste@gmail.com",
+                                    "groupId":"625a2453-a39d-456e-aaf0-e59b687a0af2"
+                                }
+                            }
+
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{                                        
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "emailName": {
+                                            "type": "string"
+                                        },
+                                        "groupId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "firstName": "Nome Teste",
+                                        "lastName": "Sobrenome Teste",
+                                        "email": "emaildeteste@gmail.com",
+                                        "groupId":"625a2453-a39d-456e-aaf0-e59b687a0af2"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "Email already in use"                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        },
+                                        "stack":{
+                                            "type": "string"
+                                        },
+                                        "local":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "There was an error when saving the data.",
+                                        "stack": "Cannot SET email in table users",
+                                        "local": "user.update"                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Deletes an user",
+                "description": "Deletes an existing user",                
+                "responses": {
+                    "200": {
+                        "description": "Deleted",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "User Deleted"                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "User doesnt exist"                                        
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        },
+                                        "stack":{
+                                            "type": "string"
+                                        },
+                                        "local":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "There was an error when deleting user",
+                                        "stack": "Cannot delete user in table users",
+                                        "local": "user.delete"                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups":{            
+            "get":{
+                "tags":[
+                    "GroupController"
+                ],
+                "summary": "Search for groups",
+                "description":"search for all groups",                
+                  "responses":{
+                      "200":{
+                          "description": "List of groups",
+                          "content":{
+                              "application/json":{
+                                  "schema":{
+                                      "type":"object",
+                                      "properties":{
+                                        "GROUP_ID":{
+                                            "type": "string"
+                                        },
+                                        "GROUP_NAME":{
+                                            "type": "string"
+                                        },
+                                        "GROUP_DESCRIPTION": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": [
+                                        {
+                                            "GROUP_ID": "625a2453-a39d-456e-aaf0-e59b687a0af2",
+                                            "GROUP_NAME": "Support Agents",
+                                            "GROUP_DESCRIPTION": null
+                                        },
+                                        {
+                                            "GROUP_ID": "9b6f80a4-9865-4638-b06b-21bed4ee3933",
+                                            "GROUP_NAME": "Bot Builders",
+                                            "GROUP_DESCRIPTION": null
+                                        },
+                                        {
+                                            "GROUP_ID": "f458c308-123f-401c-8100-49e9b758adeb",
+                                            "GROUP_NAME": "Bot Admins",
+                                            "GROUP_DESCRIPTION": null
+                                        }
+                                    ]
+                                  }
+                              }
+                          }
+                      },
+                    "500":{
+                        "description": "Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        },
+                                        "stack":{
+                                            "type": "string"
+                                        },
+                                        "local":{
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "There was an error when loading the data.",
+                                        "stack": "Cannot select from table groups",
+                                        "local": "groups.index"                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  }
+            }
+        }
+    }
+}
