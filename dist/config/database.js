@@ -1,14 +1,8 @@
-"use strict";require('dotenv').config({
-    path: process.env.NODE_ENV == 'test' ? '.env.test' : '.env'
-})
-
-module.exports = {
-    dialect : process.env.DB_DIALECT || 'postgres',
-    storage: "./src/tests/database.sqlite",
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    "logging": true,
+"use strict";module.exports = {
+    dialect :'postgres',    
+    host: 'chunee.db.elephantsql.com',
+    username: 'yaxufctb',
+    password: 'TJFf8uXpFW13rxURsTs1NPpq8wq6yxLC',
+    database: 'yaxufctb',    
     port: '5432'  
 };      

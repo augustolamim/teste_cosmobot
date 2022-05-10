@@ -8,6 +8,10 @@ import GroupController from './app/controllers/GroupController';
 import validator from './app/middlewares/validator';
 import * as schemas from './schema';
 
+//swagger api documentation
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger.json';
+
 const routes = new Router();
 
 //Users routes
@@ -19,6 +23,8 @@ routes.delete('/users/:userId', UserController.delete);
 //Groups routes
 routes.get('/groups', GroupController.index);
 
+//Api documentation
+routes.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 export default routes;

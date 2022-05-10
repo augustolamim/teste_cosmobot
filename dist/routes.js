@@ -8,6 +8,10 @@ var _GroupController = require('./app/controllers/GroupController'); var _GroupC
 var _validator = require('./app/middlewares/validator'); var _validator2 = _interopRequireDefault(_validator);
 var _schema = require('./schema'); var schemas = _interopRequireWildcard(_schema);
 
+//swagger api documentation
+var _swaggeruiexpress = require('swagger-ui-express'); var _swaggeruiexpress2 = _interopRequireDefault(_swaggeruiexpress);
+var _swaggerjson = require('./swagger.json'); var _swaggerjson2 = _interopRequireDefault(_swaggerjson);
+
 const routes = new (0, _express.Router)();
 
 //Users routes
@@ -19,17 +23,8 @@ routes.delete('/users/:userId', _UserController2.default.delete);
 //Groups routes
 routes.get('/groups', _GroupController2.default.index);
 
-/*
-routes.post('/users', UserController.store);
+//Api documentation
+routes.use('/docs', _swaggeruiexpress2.default.serve, _swaggeruiexpress2.default.setup(_swaggerjson2.default));
 
-routes.put('/users/:id', UserController.update);
-routes.get('/users/', UserController.index);
-
-routes.get('/profiles', GroupController.index);
-routes.get('/profiles/:id' , GroupController.edit);
-routes.post('/profiles', GroupController.store);
-routes.put('/profiles/:id', GroupController.update);
-
-*/
 
 exports. default = routes;
